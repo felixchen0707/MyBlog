@@ -33,8 +33,8 @@
 <meta property="article:published_time" content="2022-07-31T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-07-31T16:00:00.000Z">
 <meta property="article:author" content="Felix Chen">
-<meta property="article:tag" content="python">
 <meta property="article:tag" content="django">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@1545328384854482945">
   
@@ -129,7 +129,7 @@ id="第一种修改modelform类的widget属性">第一种：修改ModelForm类�
 <p>  对上述代码做出一些解释。<code>super().__init__(*args,**kwargs)</code>是必须执行的，其初始化父类。然后，我们对存在的所有字段进行遍历，并对其中的<code>field</code>设置<code>widget</code>。其中，判断句<code>if</code>是为了防止覆盖原本的<code>attrs</code>属性。对于重写后的<code>__init__(self)</code>方法，我们可以单独将其作为一个父类，之后需要使用的所有ModelForm都改为继承此父类即可。</p>
 <h2 id="拼接url">拼接URL</h2>
 <p>  在访问url时，许多网站采用GET方式传参，这种参数一般显式地拼接在url后，例如</p>
-<div class="tag-plugin note" ><div class="body"><p>https://127.0.0.1:8000/index/?page=4</p></div></div>
+<div class="tag-plugin note" ><div class="body"><p>https://127.0.0.1:8000/index/?page=4</p></div></div>
 <p>在开发中，这样的参数可能不止一个，对于多个参数，在点击超链接时为了防止参数的损失，解决方式之一就是对超链接进行后端的拼接。django自然也支持这个操作。例如我们需要对上述url拼接一个<code>key=12</code>的参数使得其能够携带两个参数，我们首先要获取已有的参数。在访问url时，<code>request</code>变量会携带所有与这次url访问有关的信息，因此，我们要从这里动手脚。当然，出于保护机制，django不允许直接修改<code>request</code>的值，因此，我们需要拷贝一份。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query_dict = copy.deepcopy(request.GET)</span><br></pre></td></tr></table></figure>
 <p>  说明一下上一行代码：<code>request.GET</code>携带了以GET方式传递的所有参数，其类型是一个字典。然后，我们要对<code>query_dict</code>添加键值关系，<code>setlist()</code>方法支持这种操作。例如我们来添加<code>key=12</code>。</p>
@@ -155,7 +155,7 @@ target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="\posts\a907f775\" title="django学习笔记(2)：操作MySQL数据库"><span class="title">django学习笔记(2)：操作MySQL数据库</span><span class="excerpt">使用django操作mysql数据库。</span></a><a class="item" href="\posts\357997ca\" title="django学习笔记(1)：Django的安装与准备"><span class="title">django学习笔记(1)：Django的安装与准备</span><span class="excerpt">django是一款基于python的网站开发工具。本文主要介绍Django的安装与使用前准备。</span></a><a class="item" href="\posts\f5da62aa\" title="django学习笔记(3)：models数据类型处理"><span class="title">django学习笔记(3)：models数据类型处理</span><span class="excerpt">如何在django中处理不同的数据类型？</span></a><a class="item" href="\posts\79d21042\" title="在django中实现websocket"><span class="title">在django中实现websocket</span><span class="excerpt">本文在django中实现websocket协议。</span></a><a class="item" href="\posts\c8b4e820\" title="RSA加密算法"><span class="title">RSA加密算法</span><span class="excerpt">RSA，如今最广泛使用的公钥加密算法。数字签名、数字证书、SSH、HTTPS的加密链接全是它的典型应用。RSA背后隐藏着什么？</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/posts/357997ca/" title="django学习笔记(1)：Django的安装与准备"><span class="title">django学习笔记(1)：Django的安装与准备</span><span class="excerpt">django是一款基于python的网站开发工具。本文主要介绍Django的安装与使用前准备。</span></a><a class="item" href="/posts/a907f775/" title="django学习笔记(2)：操作MySQL数据库"><span class="title">django学习笔记(2)：操作MySQL数据库</span><span class="excerpt">使用django操作mysql数据库。</span></a><a class="item" href="/posts/f5da62aa/" title="django学习笔记(3)：models数据类型处理"><span class="title">django学习笔记(3)：models数据类型处理</span><span class="excerpt">如何在django中处理不同的数据类型？</span></a><a class="item" href="/posts/79d21042/" title="在django中实现websocket"><span class="title">在django中实现websocket</span><span class="excerpt">本文在django中实现websocket协议。</span></a><a class="item" href="/posts/c8b4e820/" title="RSA加密算法"><span class="title">RSA加密算法</span><span class="excerpt">RSA，如今最广泛使用的公钥加密算法。数字签名、数字证书、SSH、HTTPS的加密链接全是它的典型应用。RSA背后隐藏着什么？</span></a></div></section></div>
 
 
 

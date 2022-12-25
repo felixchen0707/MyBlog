@@ -111,8 +111,8 @@
 <h1 class="article-title"><span>Stellar动态友链分组</span></h1>
 <p>我们时常希望博客的友链界面能够对不同的友链分组；stellar的动态友链功能又十分强大，但所有导出的数据都会写入一个文件。这篇文章记录对动态友链生成仓库的改造，使之能够进行友链分类。</p>
 <span id="more"></span>
-<div class="tag-plugin note" color="blue"><div class="title"><strong>11月15日更新</strong></div><div class="body"><p>最新版本的动态友联已经支持输出到自定义文件，因此读者继续参考本文时请注意文章的时效性。</p></div></div>
-<div class="tag-plugin note" color="yellow"><div class="body"><p>由于本文对于仓库源码有一定的改动，请先确认你是否确实有这个需求，而后再理性地选择是否魔改。</p></div></div>
+<div class="tag-plugin note" color="blue"><div class="title"><strong>11月15日更新</strong></div><div class="body"><p>最新版本的动态友联已经支持输出到自定义文件，因此读者继续参考本文时请注意文章的时效性。</p></div></div>
+<div class="tag-plugin note" color="yellow"><div class="body"><p>由于本文对于仓库源码有一定的改动，请先确认你是否确实有这个需求，而后再理性地选择是否魔改。</p></div></div>
 <p>废话我就不多说了，我们直接开始。</p>
 <h1 id="fork动态友链抓取仓库">fork动态友链抓取仓库</h1>
 <p>首先，你需要fork动态友链抓取仓库，链接如下：</p>
@@ -120,7 +120,7 @@
 <p>根据README内容完成配置。这里我就不多赘述了，需要保证你的workflow能够正确运行并且<code>output</code>分支能看到输出的<code>data.json</code>文件。</p>
 <h1 id="代码修改">代码修改</h1>
 <p>在这个魔改中需要修改两部分内容(均处于<code>main</code>分支下)：<code>config.yml</code>和<code>generator/main.py</code>。这里先给出两者的文件：</p>
-<div class="tag-plugin note" color="blue"><div class="title"><strong>提示</strong></div><div class="body"><p>在复制源码前，我建议你看看我都改了什么。这有助于你对代码有宏观的把握，也对程序中可能出现的问题有解决想法。</p></div></div>
+<div class="tag-plugin note" color="blue"><div class="title"><strong>提示</strong></div><div class="body"><p>在复制源码前，我建议你看看我都改了什么。这有助于你对代码有宏观的把握，也对程序中可能出现的问题有解决想法。</p></div></div>
 <h2 id="config.yml">config.yml</h2>
 <div class="tag-plugin tabs"id="tab_2"><div class="nav-tabs"><div class="tab active"><a href="#tab_2-1">diff</a></div><div class="tab"><a href="#tab_2-2">源文件</a></div></div><div class="tab-content"><div class="tab-pane active" id="tab_2-1"><figure class="highlight diff">
 <figcaption>
@@ -219,7 +219,7 @@ target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="\posts\477696ac\" title="利用Github Action部署博客"><span class="title">利用Github Action部署博客</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/posts/477696ac/" title="利用Github Action部署博客"><span class="title">利用Github Action部署博客</span></a></div></section></div>
 
 
 

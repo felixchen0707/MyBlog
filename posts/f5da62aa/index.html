@@ -33,8 +33,8 @@
 <meta property="article:published_time" content="2022-07-21T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-07-21T16:00:00.000Z">
 <meta property="article:author" content="Felix Chen">
-<meta property="article:tag" content="python">
 <meta property="article:tag" content="django">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@1545328384854482945">
   
@@ -145,7 +145,7 @@
 <p>  在前端页面，你可以使用模板语法来完成这个功能： <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; obj.get_gender_display &#125;&#125;</span><br></pre></td></tr></table></figure>
 需要注意的是：<strong>你依然不需要在函数末尾添加括号。</strong></p>
 <h1 id="django的html模板">Django的html模板</h1>
-<div class="tag-plugin note" color="blue"><div class="body"><p>这部分不是本文的重点，但也是Django开发中十分重要的一部分，其可以大大增加代码复用率。因此也一并写在这里。</p></div></div>
+<div class="tag-plugin note" color="blue"><div class="body"><p>这部分不是本文的重点，但也是Django开发中十分重要的一部分，其可以大大增加代码复用率。因此也一并写在这里。</p></div></div>
 <p>  很多时候，许多HTML文件都具备一部分的相同结构，例如，所有页面都有页面顶部的导航栏(navigation
 bar)，都需要引入相同的css和js等文件。Django提供模板页面来解决这个问题。我们只需要在模板文件中需要被插入的结构加入：
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--省略以上html内容--&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;% block &#123;板块名称&#125; %&#125;</span><br><span class="line">    &#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--省略以下html内容--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -171,7 +171,7 @@ target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="\posts\a907f775\" title="django学习笔记(2)：操作MySQL数据库"><span class="title">django学习笔记(2)：操作MySQL数据库</span><span class="excerpt">使用django操作mysql数据库。</span></a><a class="item" href="\posts\357997ca\" title="django学习笔记(1)：Django的安装与准备"><span class="title">django学习笔记(1)：Django的安装与准备</span><span class="excerpt">django是一款基于python的网站开发工具。本文主要介绍Django的安装与使用前准备。</span></a><a class="item" href="\posts\347baf21\" title="django笔记(4)：为ModelForm表单添加样式、如何拼接GET参数"><span class="title">django笔记(4)：为ModelForm表单添加样式、如何拼接GET参数</span><span class="excerpt">为django中的modelform添加样式。</span></a><a class="item" href="\posts\79d21042\" title="在django中实现websocket"><span class="title">在django中实现websocket</span><span class="excerpt">本文在django中实现websocket协议。</span></a><a class="item" href="\posts\c8b4e820\" title="RSA加密算法"><span class="title">RSA加密算法</span><span class="excerpt">RSA，如今最广泛使用的公钥加密算法。数字签名、数字证书、SSH、HTTPS的加密链接全是它的典型应用。RSA背后隐藏着什么？</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/posts/357997ca/" title="django学习笔记(1)：Django的安装与准备"><span class="title">django学习笔记(1)：Django的安装与准备</span><span class="excerpt">django是一款基于python的网站开发工具。本文主要介绍Django的安装与使用前准备。</span></a><a class="item" href="/posts/a907f775/" title="django学习笔记(2)：操作MySQL数据库"><span class="title">django学习笔记(2)：操作MySQL数据库</span><span class="excerpt">使用django操作mysql数据库。</span></a><a class="item" href="/posts/347baf21/" title="django笔记(4)：为ModelForm表单添加样式、如何拼接GET参数"><span class="title">django笔记(4)：为ModelForm表单添加样式、如何拼接GET参数</span><span class="excerpt">为django中的modelform添加样式。</span></a><a class="item" href="/posts/79d21042/" title="在django中实现websocket"><span class="title">在django中实现websocket</span><span class="excerpt">本文在django中实现websocket协议。</span></a><a class="item" href="/posts/c8b4e820/" title="RSA加密算法"><span class="title">RSA加密算法</span><span class="excerpt">RSA，如今最广泛使用的公钥加密算法。数字签名、数字证书、SSH、HTTPS的加密链接全是它的典型应用。RSA背后隐藏着什么？</span></a></div></section></div>
 
 
 

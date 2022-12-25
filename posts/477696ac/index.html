@@ -23,12 +23,12 @@
   <title>利用Github Action部署博客 - Felix Chen</title>
 
   
-    <meta name="description" content="前言 刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github Action的强大功能，加上阅读了这篇教程后，现在已经实现将源文件推送到某个Github仓库，而后由仓库自动执行Github Action推送静态文件到另一个仓">
+    <meta name="description" content="前言 刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github Action的强大功能，加上阅读了这篇教程后，现在已经实现将源文件推送到某个Github仓库，而后由仓库自动执行Github Action推送静态文件到另一个仓库(一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Github Action部署博客">
 <meta property="og:url" content="https://blog.felixchen0707.cn/posts/477696ac/">
 <meta property="og:site_name" content="Felix Chen">
-<meta property="og:description" content="前言 刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github Action的强大功能，加上阅读了这篇教程后，现在已经实现将源文件推送到某个Github仓库，而后由仓库自动执行Github Action推送静态文件到另一个仓">
+<meta property="og:description" content="前言 刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github Action的强大功能，加上阅读了这篇教程后，现在已经实现将源文件推送到某个Github仓库，而后由仓库自动执行Github Action推送静态文件到另一个仓库(一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.imgtg.com/2022/11/10/tkJwr.png">
 <meta property="og:image" content="https://i.imgtg.com/2022/11/10/tkR1M.png">
@@ -119,12 +119,12 @@ Action推送静态文件到另一个仓库(一般是我们的<code>.github.io</c
 <h1 id="操作步骤">操作步骤</h1>
 <h2 id="创建需要用到的仓库">创建需要用到的仓库</h2>
 <p>首先需要创建两个仓库，一个用于存放源文件，另一个存放生成的静态文件。以我的为例，用<code>felixchen0707/MyBlogSourceCode</code>存放源文件，用<code>felixchen0707/MyBlog</code>存放静态文件。</p>
-<div class="tag-plugin note" color="yellow"><div class="title"><strong>提醒</strong></div><div class="body"><p>值得注意的是，你也可以在同一个仓库中创建两个分支，在两个分支中分别存放源文件和静态文件。但并不推荐这么做，因为若这样做，也就意味着你的源文件和静态文件只能同时为public或者private，而且github仓库数目也并没有那么紧张，分开存放利远大于弊。</p></div></div>
+<div class="tag-plugin note" color="yellow"><div class="title"><strong>提醒</strong></div><div class="body"><p>值得注意的是，你也可以在同一个仓库中创建两个分支，在两个分支中分别存放源文件和静态文件。但并不推荐这么做，因为若这样做，也就意味着你的源文件和静态文件只能同时为public或者private，而且github仓库数目也并没有那么紧张，分开存放利远大于弊。</p></div></div>
 <h2 id="生成密钥">生成密钥</h2>
 <p>由于对仓库的写入需要特别的权限，因此你需要生成密钥对。在bash键入如下命令：</p>
 <div class="tag-plugin copy"><input class="copy-area" readonly id="copy_12" value="ssh-keygen -f github-deploy-key"><button class="copy-btn" onclick="util.copy(&quot;copy_12&quot;,&quot;Copied!&quot;)"><svg class="icon copy-btn" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path></svg></button></div>
 <p>你可以在当前文件夹下看到两个文件，分别为<code>github-deploy-key</code>和<code>github-deploy-key.pub</code>，前者为私钥，后者为公钥。</p>
-<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>请务必保证私钥的保密性。</p></div></div>
+<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>请务必保证私钥的保密性。</p></div></div>
 <h2 id="为仓库配置公钥和私钥">为仓库配置公钥和私钥</h2>
 <h3 id="源文件仓库">源文件仓库</h3>
 <p>首先前往源文件仓库配置<strong>私钥</strong>。在我提供的例子中，其为<code>felixchen0707/MyBlogSourceCode</code>。</p>
@@ -132,10 +132,10 @@ Action推送静态文件到另一个仓库(一般是我们的<code>.github.io</c
 <p>如上图所示，为其新建一个<code>secret</code>，名称为<code>HEXO_DEPLOY_PRI</code>，内容为<code>github-deploy-key</code>文件中的全部内容(全选<kbd>Ctrl</kbd>+<kbd>A</kbd>)。</p>
 <h3 id="静态文件仓库">静态文件仓库</h3>
 <p>然后，前往静态文件仓库配置<strong>公钥</strong>。在我提供的例子中，为<code>felixchen0707/MyBlog</code>。</p>
-<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>如果使用GithubPages托管可供访问的网站，这个仓库必须是<code>你的用户名.github.io</code>，以我为例，即<code>felixchen0707.github.io</code>。</p></div></div>
+<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>如果使用GithubPages托管可供访问的网站，这个仓库必须是<code>你的用户名.github.io</code>，以我为例，即<code>felixchen0707.github.io</code>。</p></div></div>
 <div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://i.imgtg.com/2022/11/10/tkR1M.png" alt="静态文件仓库" fancybox="true"/></div><div class="image-meta"><span class="image-caption center">静态文件仓库</span></div></div>
 <p>如上图所示，添加<code>Deploy Keys</code>。<code>Title</code>为<code>HEXO_DEPLOY_PUB</code>，内容为文件<code>github-deploy-key.pub</code>的<strong>全部内容</strong>。<strong>同时，勾选下方的<code>Allow Write Access</code>来提供写入权限</strong>。若你没有勾选此选项，该密钥对没有写的权限。</p>
-<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>这里添加的是<code>Deploy Keys</code>而非<code>Secrets</code>，一定不要搞错。</p></div></div>
+<div class="tag-plugin note" color="yellow"><div class="title"><strong>注意</strong></div><div class="body"><p>这里添加的是<code>Deploy Keys</code>而非<code>Secrets</code>，一定不要搞错。</p></div></div>
 <h2 id="添加workflow">添加Workflow</h2>
 <h3 id="workflow模板">workflow模板</h3>
 <p>接下来，在你的博客根目录下新建一个文件夹，名为<code>.github</code>，其中存放的文件可以被github识别并且加以利用。新建<code>.github/workflows/auto_deploy.yml</code>编写workflow模板。其内容如下：</p>
@@ -179,7 +179,7 @@ Action推送静态文件到另一个仓库(一般是我们的<code>.github.io</c
 <figure class="highlight yaml"><figcaption><span>.github/dependabot.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">updates:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">package-ecosystem:</span> <span class="string">npm</span></span><br><span class="line">  <span class="attr">directory:</span> <span class="string">&quot;/&quot;</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="attr">interval:</span> <span class="string">daily</span></span><br><span class="line">  <span class="attr">open-pull-requests-limit:</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
 <p>插件的更新会通过pr的方式告知你，你只需要merge即可。</p>
 <p>或者你可以在本地升级插件版本，重新推送。</p>
-<div class="tag-plugin note" color="blue"><div class="title"><strong>建议</strong></div><div class="body"><p>建议推送前先使用<code>hexo s</code>预览，因为例如<code>hexo-abbrlink</code>这类插件会在预览或生成站点时在MarkDown文件的头部增加新的键值对。</p></div></div>
+<div class="tag-plugin note" color="blue"><div class="title"><strong>建议</strong></div><div class="body"><p>建议推送前先使用<code>hexo s</code>预览，因为例如<code>hexo-abbrlink</code>这类插件会在预览或生成站点时在MarkDown文件的头部增加新的键值对。</p></div></div>
 <h2
 id="workflow运行提示action_bot无权限怎么办">workflow运行提示action_bot无权限怎么办</h2>
 <p>请检查你是否安装了<code>hexo-deployer-git</code>插件，并且在配置文件中是否采取了ssh而非http连接：</p>
@@ -193,7 +193,8 @@ Action部署就一定优越，大家可以按需食用。</p>
 target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享
 4.0 国际</a>许可协议，转载请注明出处。</p>
 </div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://blog.felixchen0707.cn/posts/477696ac/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://blog.felixchen0707.cn/posts/477696ac/&title=利用Github Action部署博客 - Felix Chen&summary=前言
-刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github..."><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=利用Github Action部署博客 - Felix Chen&amp;body=https://blog.felixchen0707.cn/posts/477696ac/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://blog.felixchen0707.cn/posts/477696ac/index.html"/></div></div></section></div>
+刚开始建立博客的时候，我一直采取的是本地hexo g后hexo d推送到Github的仓库中。这是利用hexo搭建博客最简单的部署方式。然后后续发现，源文件在这种情况下很容易丢失，备份的话又显得比较麻烦。后来了解到Github
+..."><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=利用Github Action部署博客 - Felix Chen&amp;body=https://blog.felixchen0707.cn/posts/477696ac/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.4/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://blog.felixchen0707.cn/posts/477696ac/index.html"/></div></div></section></div>
 
 </article>
 
@@ -205,7 +206,7 @@ target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-
       <div class='title cap theme'>您可能感兴趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="\posts\36ee0b0c\" title="Stellar动态友链分组"><span class="title">Stellar动态友链分组</span><span class="excerpt">我们时常希望博客的友链界面能够对不同的友链分组；stellar的动态友链功能又十分强大，但所有导出的数据都会写入一个文件。这篇文章记录对动态友链生成仓库的改造，使之能够进行友链分类。</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="/posts/36ee0b0c/" title="Stellar动态友链分组"><span class="title">Stellar动态友链分组</span><span class="excerpt">我们时常希望博客的友链界面能够对不同的友链分组；stellar的动态友链功能又十分强大，但所有导出的数据都会写入一个文件。这篇文章记录对动态友链生成仓库的改造，使之能够进行友链分类。</span></a></div></section></div>
 
 
 
